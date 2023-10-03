@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_app/models/meal.dart';
+import 'package:meal_app/screens/meal_details_screen.dart';
 import 'package:meal_app/widgets/mail_item.dart';
 
 class MealsScreen extends StatelessWidget {
@@ -23,7 +24,16 @@ class MealsScreen extends StatelessWidget {
           children: [
             ...meals
                 .map(
-                  (meal) => MealItem(meal: meal),
+                  (meal) => MealItem(
+                    meal: meal,
+                    onSelectMeal: (Meal meal) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (ctx) => MealDetailScreen(meal: meal),
+                        ),
+                      );
+                    },
+                  ),
                 )
                 .toList()
           ],
