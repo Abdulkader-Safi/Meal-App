@@ -10,17 +10,19 @@ class MealItem extends StatelessWidget {
 
   final Meal meal;
 
+  void selectMeal() {}
+
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(15),
       ),
       clipBehavior: Clip.hardEdge,
       elevation: 2,
       child: InkWell(
-        onTap: () {},
+        onTap: selectMeal,
         child: Stack(
           children: [
             FadeInImage(
@@ -52,13 +54,36 @@ class MealItem extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    const Row(
-                      children: [],
-                    )
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.schedule),
+                            const SizedBox(width: 6),
+                            Text('${meal.duration.toString()} min'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.work),
+                            const SizedBox(width: 6),
+                            Text(meal.complexityText),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.ac_unit),
+                            const SizedBox(width: 6),
+                            Text(meal.affordabilityText),
+                          ],
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
