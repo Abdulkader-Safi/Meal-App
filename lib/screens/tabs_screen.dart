@@ -47,10 +47,24 @@ class _TabsScreenState extends State<TabsScreen> {
     var activePageTitle = 'Pick your category';
 
     if (_selectedPageIndex == 1) {
-      activePage = MealsScreen(
-        meals: _favoriteMeal,
-        onToggleFavorite: _toggleMealFavoriteStatus,
-      );
+      if (_favoriteMeal.isEmpty) {
+        activePage = const Scaffold(
+          body: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Center(
+              child: Text(
+                "No food found in your favorite list \nAdd food to your favorites list by clicking star icon on the top",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        );
+      } else {
+        activePage = MealsScreen(
+          meals: _favoriteMeal,
+          onToggleFavorite: _toggleMealFavoriteStatus,
+        );
+      }
       activePageTitle = "Favorite";
     }
 
