@@ -1,5 +1,3 @@
-import 'dart:developer' as dev;
-
 import 'package:flutter/material.dart';
 import 'package:meal_app/models/meal.dart';
 import 'package:meal_app/screens/categories_sceen.dart';
@@ -35,8 +33,6 @@ class _TabsScreenState extends State<TabsScreen> {
     setState(() {
       _favoriteMeal.add(meal);
     });
-
-    dev.log(_favoriteMeal.toString());
   }
 
   @override

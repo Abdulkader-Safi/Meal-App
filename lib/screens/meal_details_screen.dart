@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:meal_app/models/meal.dart';
 
@@ -22,7 +20,6 @@ class MealDetailScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               onToggleFavorite(meal);
-              log("Clicked");
             },
             icon: const Icon(Icons.star),
           ),
