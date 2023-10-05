@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_app/models/meal.dart';
 import 'package:meal_app/screens/categories_sceen.dart';
+import 'package:meal_app/screens/filter_screen.dart';
 import 'package:meal_app/screens/meal_screen.dart';
 import 'package:meal_app/widgets/main_drawer.dart';
 
@@ -28,6 +29,18 @@ class _TabsScreenState extends State<TabsScreen> {
         content: Text(message),
       ),
     );
+  }
+
+  void _setScreen(String identifier) {
+    if (identifier == 'filters') {
+      Navigator.of(context).pop();
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (ctx) => const FilterScreen(),
+        ),
+      );
+    }
   }
 
   void _toggleMealFavoriteStatus(Meal meal) {
@@ -81,7 +94,9 @@ class _TabsScreenState extends State<TabsScreen> {
         title: Text(activePageTitle),
       ),
       body: activePage,
-      drawer: const MainDrawer(),
+      drawer: MainDrawer(
+        onSelectScreen: _setScreen,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
         currentIndex: _selectedPageIndex,
