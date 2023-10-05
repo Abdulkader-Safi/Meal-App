@@ -18,9 +18,7 @@ class MealDetailScreen extends StatelessWidget {
         title: Text(meal.title),
         actions: [
           IconButton(
-            onPressed: () {
-              onToggleFavorite(meal);
-            },
+            onPressed: () => onToggleFavorite(meal),
             icon: const Icon(Icons.star),
           ),
         ],
