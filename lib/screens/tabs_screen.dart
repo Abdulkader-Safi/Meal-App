@@ -47,7 +47,9 @@ class _TabsScreenState extends State<TabsScreen> {
       Navigator.of(context)
           .push(
         MaterialPageRoute(
-          builder: (ctx) => const FilterScreen(),
+          builder: (ctx) => FilterScreen(
+            currentFilter: _selectedFilters,
+          ),
         ),
       )
           .then(
