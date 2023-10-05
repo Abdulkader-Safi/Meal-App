@@ -15,6 +15,12 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
   final List<Meal> _favoriteMeal = [];
+  Map<Filter, bool> _selectedFilters = {
+    Filter.glutenFree: false,
+    Filter.lactoseFree: false,
+    Filter.vegan: false,
+    Filter.vegetarian: false
+  };
 
   void _selectPage(int index) {
     setState(() {
@@ -35,11 +41,17 @@ class _TabsScreenState extends State<TabsScreen> {
     if (identifier == 'filters') {
       Navigator.of(context).pop();
 
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context)
+          .push(
         MaterialPageRoute(
           builder: (ctx) => const FilterScreen(),
         ),
-      );
+      )
+          .then((value) {
+        setState(() {
+          _selectedFilters = value;
+        });
+      });
     }
   }
 
