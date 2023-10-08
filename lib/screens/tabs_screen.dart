@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_app/models/meal.dart';
+import 'package:meal_app/providers/favorite_provider.dart';
 import 'package:meal_app/providers/meals_provider.dart';
 import 'package:meal_app/screens/categories_sceen.dart';
 import 'package:meal_app/screens/filter_screen.dart';
@@ -23,22 +24,12 @@ class TabsScreen extends ConsumerStatefulWidget {
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
-  final List<Meal> _favoriteMeal = [];
   Map<Filter, bool> _selectedFilters = kInitialFilters;
 
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
     });
-  }
-
-  void _showInfoMessage(String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-      ),
-    );
   }
 
   void _setScreen(String identifier) {
@@ -61,23 +52,6 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         },
       );
     }
-  }
-
-  void _toggleMealFavoriteStatus(Meal meal) {
-    final isExisting = _favoriteMeal.contains(meal);
-
-    if (isExisting) {
-      setState(() {
-        _favoriteMeal.remove(meal);
-      });
-      _showInfoMessage('Remove ${meal.title} from favorite list');
-      return;
-    }
-
-    setState(() {
-      _favoriteMeal.add(meal);
-    });
-    _showInfoMessage('Add ${meal.title} to favorite list');
   }
 
   @override
@@ -105,11 +79,12 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
     Widget activePage = CategoriesScreen(
       availableMeal: availableMeals,
-      onToggleFavorite: _toggleMealFavoriteStatus,
     );
     var activePageTitle = 'Pick your category';
 
     if (_selectedPageIndex == 1) {
+      final List<Meal> _favoriteMeal = ref.watch(favoritesMealProvider);
+
       if (_favoriteMeal.isEmpty) {
         activePage = const Scaffold(
           body: Padding(
@@ -125,7 +100,6 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       } else {
         activePage = MealsScreen(
           meals: _favoriteMeal,
-          onToggleFavorite: _toggleMealFavoriteStatus,
         );
       }
       activePageTitle = "Favorite";

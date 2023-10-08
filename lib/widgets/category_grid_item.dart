@@ -8,12 +8,10 @@ class CategoryGridItem extends StatelessWidget {
     super.key,
     required this.category,
     required this.availableMeals,
-    required this.onToggleFavorite,
   });
 
   final Category category;
   final List<Meal> availableMeals;
-  final void Function(Meal meal) onToggleFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +27,6 @@ class CategoryGridItem extends StatelessWidget {
             builder: (ctx) => MealsScreen(
               title: category.title,
               meals: filteredMeal,
-              onToggleFavorite: onToggleFavorite,
             ),
           ),
         );
